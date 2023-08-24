@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 
 warnings.filterwarnings("ignore")
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+plt.rcParams['font.sans-serif'] = ['SimHei']  
+plt.rcParams['axes.unicode_minus'] = False  
 pd.set_option('display.max_rows', 100, 'display.max_columns', 1000, "display.max_colwidth", 1000, 'display.width', 1000)
 
 data = pd.read_excel("./data/Second-Hand House.xlsx", na_values=np.nan)
