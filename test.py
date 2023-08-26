@@ -14,14 +14,16 @@ from sklearn.metrics import mean_squared_error
 import numpy as np
 from sklearn.metrics import r2_score
 import warnings
+
 warnings.filterwarnings("ignore")
 
-def encode_columns(data, columns_to_encode):
-    encoded_data = data.copy()
 
-    for col in columns_to_encode:
+def encode_columns(encode_data, columns2encode):
+    encoded_data = encode_data.copy()
+
+    for col in columns2encode:
         label_encoder = LabelEncoder()
-        encoded_data[col] = label_encoder.fit_transform(data[col])
+        encoded_data[col] = label_encoder.fit_transform(encode_data[col])
 
         one_hot_encoder = OneHotEncoder(sparse=False)
         encoded_col = one_hot_encoder.fit_transform(encoded_data[col].values.reshape(-1, 1))
@@ -43,18 +45,18 @@ def encode_columns(data, columns_to_encode):
 data = pd.read_excel('Second-Hand House plus.xlsx')
 
 # 指定需要进行 one-hot 编码的列
-columns_to_encode = ['地段', '房屋户型', '户型结构', '房屋朝向', '装修情况', '供暖方式', '配备电梯', '产权所属', '地段_区', '地段_路',
+columns_to_encode = ['地段', '房屋户型', '户型结构', '房屋朝向', '装修情况', '供暖方式', '配备电梯', '产权所属',
+                     '地段_区', '地段_路',
                      '楼层位置']
 
 # 调用函数进行编码
 data = encode_columns(data, columns_to_encode)
 
-
 # 指定要删除的列名
 columns_to_drop = ['标题', '所在楼层', '建筑类型', '建筑结构', '挂牌时间', '交易权属', '上次交易', '房屋用途',
-                   '房屋年限', '房本备件', '核心卖点', '小区介绍', '周边配套', '交通出行', '户型介绍', '适宜人群', '房屋户型_室',
+                   '房屋年限', '房本备件', '核心卖点', '小区介绍', '周边配套', '交通出行', '户型介绍', '适宜人群',
+                   '房屋户型_室',
                    '房屋户型_厅', '房屋户型_厨', '房屋户型_卫', '抵押信息', '单价']
-# columns_to_drop = [0, 1, 2, 6, 10, 12, 17, 18, 19, 20, 21, 23]
 # 删除指定的列
 data = data.drop(columns=columns_to_drop, axis=1)
 
